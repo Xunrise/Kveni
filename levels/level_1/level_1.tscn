@@ -23,43 +23,69 @@ scale = Vector2(2.52, 2.64)
 next_scene = "res://level_view.tscn"
 
 [node name="Quiz" type="Node2D" parent="."]
+scale = Vector2(4.6, 4.6)
 script = ExtResource("3_xsan3")
 correct_color = "red"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Quiz"]
-offset_left = 209.0
-offset_top = 749.0
-offset_right = 354.0
-offset_bottom = 807.0
-scale = Vector2(6.52, 6.52)
+[node name="Question" type="VBoxContainer" parent="Quiz"]
+offset_right = 145.0
+offset_bottom = 161.0
 
-[node name="CenterContainer" type="CenterContainer" parent="Quiz/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Quiz/Question"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Quiz/VBoxContainer/CenterContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Quiz/Question/CenterContainer"]
 layout_mode = 2
 text = "Which color?"
 fit_content = true
 autowrap_mode = 0
 
-[node name="Container" type="BoxContainer" parent="Quiz/VBoxContainer"]
+[node name="Container" type="BoxContainer" parent="Quiz/Question"]
 layout_direction = 2
 layout_mode = 2
 
-[node name="red" type="Button" parent="Quiz/VBoxContainer/Container"]
+[node name="red" type="Button" parent="Quiz/Question/Container"]
 layout_mode = 2
 text = "Red"
 
-[node name="green" type="Button" parent="Quiz/VBoxContainer/Container"]
+[node name="green" type="Button" parent="Quiz/Question/Container"]
 layout_direction = 2
 layout_mode = 2
 text = "Green"
 
-[node name="blue" type="Button" parent="Quiz/VBoxContainer/Container"]
+[node name="blue" type="Button" parent="Quiz/Question/Container"]
 layout_direction = 2
 layout_mode = 2
 text = "Blue"
 
-[connection signal="pressed" from="Quiz/VBoxContainer/Container/red" to="Quiz" method="_on_button_pressed" binds= ["red"]]
-[connection signal="pressed" from="Quiz/VBoxContainer/Container/green" to="Quiz" method="_on_button_pressed" binds= ["green"]]
-[connection signal="pressed" from="Quiz/VBoxContainer/Container/blue" to="Quiz" method="_on_button_pressed" binds= ["blue"]]
+[node name="Answer" type="CenterContainer" parent="Quiz"]
+offset_right = 145.0
+offset_bottom = 161.0
+
+[node name="Success" type="Label" parent="Quiz/Answer"]
+layout_mode = 2
+text = "Success"
+
+[node name="Particles" type="CPUParticles2D" parent="Quiz/Answer/Success"]
+position = Vector2(26.6957, 12.7391)
+emitting = false
+amount = 25
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
+emission_shape = 1
+emission_sphere_radius = 23.5
+direction = Vector2(0, -1)
+initial_velocity_min = 80.0
+initial_velocity_max = 200.0
+tangential_accel_max = 97.87
+damping_min = 1.0
+damping_max = 1.0
+angle_max = 180.0
+scale_amount_min = 3.0
+scale_amount_max = 10.0
+
+[node name="Failure" type="Label" parent="Quiz/Answer"]
+layout_mode = 2
+text = "Failure
+"
