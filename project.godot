@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="Kveni"
-run/main_scene="res://character.tscn"
+run/main_scene="res://level_view.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://art/icon.svg"
+
+[display]
+
+window/size/viewport_width=2752
+window/size/viewport_height=2064
+window/stretch/mode="canvas_items"
 
 [editor]
 
@@ -46,3 +52,4 @@ move_down={
 [rendering]
 
 renderer/rendering_method="mobile"
+viewport/hdr_2d=true

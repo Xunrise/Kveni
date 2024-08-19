@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://32u1l6xuwuqp"]
+
+[ext_resource type="Texture2D" uid="uid://cb77gk2d0k7xi" path="res://art/level_1_bg.bmp" id="1_r4q3k"]
+[ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://level_selector.tscn" id="2_c1egf"]
+[ext_resource type="Script" path="res://levels/level_1/Quiz.gd" id="3_xsan3"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(1387, 1018)
+scale = Vector2(1.58493, 1.58493)
+texture = ExtResource("1_r4q3k")
+
+[node name="level_selector" parent="." instance=ExtResource("2_c1egf")]
+offset_left = 186.0
+offset_top = 1577.0
+offset_right = 386.0
+offset_bottom = 1727.0
+scale = Vector2(2.52, 2.64)
+next_scene = "res://level_view.tscn"
+
+[node name="Quiz" type="Node2D" parent="."]
+script = ExtResource("3_xsan3")
+correct_color = "red"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Quiz"]
+offset_left = 209.0
+offset_top = 749.0
+offset_right = 354.0
+offset_bottom = 807.0
+scale = Vector2(6.52, 6.52)
+
+[node name="CenterContainer" type="CenterContainer" parent="Quiz/VBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Quiz/VBoxContainer/CenterContainer"]
+layout_mode = 2
+text = "Which color?"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Container" type="BoxContainer" parent="Quiz/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="red" type="Button" parent="Quiz/VBoxContainer/Container"]
+layout_mode = 2
+text = "Red"
+
+[node name="green" type="Button" parent="Quiz/VBoxContainer/Container"]
+layout_direction = 2
+layout_mode = 2
+text = "Green"
+
+[node name="blue" type="Button" parent="Quiz/VBoxContainer/Container"]
+layout_direction = 2
+layout_mode = 2
+text = "Blue"
+
+[connection signal="pressed" from="Quiz/VBoxContainer/Container/red" to="Quiz" method="_on_button_pressed" binds= ["red"]]
+[connection signal="pressed" from="Quiz/VBoxContainer/Container/green" to="Quiz" method="_on_button_pressed" binds= ["green"]]
+[connection signal="pressed" from="Quiz/VBoxContainer/Container/blue" to="Quiz" method="_on_button_pressed" binds= ["blue"]]

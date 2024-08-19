@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct0wcskl3dui0"]
+
+[ext_resource type="Script" path="res://level_selector.gd" id="1_26c28"]
+
+[node name="level_selector" type="TextureButton"]
+custom_minimum_size = Vector2(200, 150)
+offset_right = 200.0
+offset_bottom = 150.0
+script = ExtResource("1_26c28")
+next_scene = "<null>"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(102.259, 72.3118)
+amount = 20
+emission_shape = 3
+emission_rect_extents = Vector2(175, 100)
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+orbit_velocity_min = 0.01
+orbit_velocity_max = 0.1
+damping_min = 35.459
+damping_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(0.909762, 0.906404, 0, 1)
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
