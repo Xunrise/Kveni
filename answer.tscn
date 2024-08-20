@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://iowag6baw0nn"]
+
+[node name="Answer" type="CenterContainer"]
+visible = false
+offset_right = 145.0
+offset_bottom = 161.0
+
+[node name="Success" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Success"
+
+[node name="Particles" type="CPUParticles2D" parent="Success"]
+position = Vector2(26.6957, 12.7391)
+emitting = false
+amount = 25
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
+emission_shape = 1
+emission_sphere_radius = 23.5
+direction = Vector2(0, -1)
+initial_velocity_min = 80.0
+initial_velocity_max = 200.0
+tangential_accel_max = 97.87
+damping_min = 1.0
+damping_max = 1.0
+angle_max = 180.0
+scale_amount_min = 3.0
+scale_amount_max = 10.0
+
+[node name="Failure" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "Failure
+"

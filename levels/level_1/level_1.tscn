@@ -59,10 +59,12 @@ layout_mode = 2
 text = "Blue"
 
 [node name="Answer" type="CenterContainer" parent="Quiz"]
+visible = false
 offset_right = 145.0
 offset_bottom = 161.0
 
 [node name="Success" type="Label" parent="Quiz/Answer"]
+visible = false
 layout_mode = 2
 text = "Success"
 
@@ -86,6 +88,7 @@ scale_amount_min = 3.0
 scale_amount_max = 10.0
 
 [node name="Failure" type="Label" parent="Quiz/Answer"]
+visible = false
 layout_mode = 2
 text = "Failure
 "

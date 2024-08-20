@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8yui6l6st3r1"]
+
+[ext_resource type="Script" path="res://question.gd" id="1_uwy5t"]
+
+[node name="Question" type="VBoxContainer"]
+offset_right = 145.0
+offset_bottom = 161.0
+script = ExtResource("1_uwy5t")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="Question" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Which color?"
+
+[node name="Container" type="BoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 2
+
+[node name="red" type="Button" parent="Container"]
+layout_mode = 2
+text = "Red"
+
+[node name="green" type="Button" parent="Container"]
+layout_direction = 2
+layout_mode = 2
+text = "Green"
+
+[node name="blue" type="Button" parent="Container"]
+layout_direction = 2
+layout_mode = 2
+text = "Blue"
+
+[connection signal="pressed" from="Container/red" to="." method="_answered" binds= ["red"]]
+[connection signal="pressed" from="Container/green" to="." method="_answered" binds= ["green"]]
+[connection signal="pressed" from="Container/blue" to="." method="_answered" binds= ["blue"]]
