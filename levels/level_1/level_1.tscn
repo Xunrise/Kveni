@@ -1,10 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://32u1l6xuwuqp"]
+[gd_scene load_steps=12 format=3 uid="uid://32u1l6xuwuqp"]
 
 [ext_resource type="Texture2D" uid="uid://cb77gk2d0k7xi" path="res://art/level_1_bg.bmp" id="1_r4q3k"]
+[ext_resource type="Script" path="res://levels/level_1/level_1.gd" id="1_vecwi"]
 [ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://level_selector.tscn" id="2_c1egf"]
-[ext_resource type="Script" path="res://levels/level_1/Quiz.gd" id="3_xsan3"]
+[ext_resource type="PackedScene" uid="uid://d4ctp42w62vqm" path="res://quiz.tscn" id="3_tehkj"]
+[ext_resource type="Script" path="res://levels/level_1/Fox.gd" id="5_ry85t"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vi2pl"]
+size = Vector2(700, 300)
+
+[sub_resource type="Animation" id="Animation_ywwhe"]
+resource_name = "hide_fox"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1979, 1334), Vector2(2338, 1334)]
+}
+
+[sub_resource type="Animation" id="Animation_g7pst"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1979, 1334)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v6kqi"]
+_data = {
+"RESET": SubResource("Animation_g7pst"),
+"hide_fox": SubResource("Animation_ywwhe")
+}
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0kgk1"]
+size = Vector2(300, 600)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cr1kc"]
+size = Vector2(500, 1000)
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_vecwi")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -22,73 +70,57 @@ offset_bottom = 1727.0
 scale = Vector2(2.52, 2.64)
 next_scene = "res://level_view.tscn"
 
-[node name="Quiz" type="Node2D" parent="."]
-scale = Vector2(4.6, 4.6)
-script = ExtResource("3_xsan3")
-correct_color = "red"
+[node name="Quiz" parent="." instance=ExtResource("3_tehkj")]
 
-[node name="Question" type="VBoxContainer" parent="Quiz"]
-offset_right = 145.0
-offset_bottom = 161.0
+[node name="Fox" type="Sprite2D" parent="."]
+position = Vector2(1979, 1334)
+texture = SubResource("PlaceholderTexture2D_vi2pl")
+script = ExtResource("5_ry85t")
 
-[node name="CenterContainer" type="CenterContainer" parent="Quiz/Question"]
-layout_mode = 2
+[node name="Button" type="Button" parent="Fox"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -698.0
+offset_top = -299.0
+offset_right = 36.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Quiz/Question/CenterContainer"]
-layout_mode = 2
-text = "Which color?"
-fit_content = true
-autowrap_mode = 0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fox"]
+libraries = {
+"": SubResource("AnimationLibrary_v6kqi")
+}
 
-[node name="Container" type="BoxContainer" parent="Quiz/Question"]
-layout_direction = 2
-layout_mode = 2
+[node name="Guide" type="Sprite2D" parent="."]
+position = Vector2(430, 964)
+texture = SubResource("PlaceholderTexture2D_0kgk1")
 
-[node name="red" type="Button" parent="Quiz/Question/Container"]
-layout_mode = 2
-text = "Red"
+[node name="Button" type="Button" parent="Guide"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -600.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="green" type="Button" parent="Quiz/Question/Container"]
-layout_direction = 2
-layout_mode = 2
-text = "Green"
+[node name="Tree" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(2338, 1087)
+scale = Vector2(1.40618, 1.73513)
+texture = SubResource("PlaceholderTexture2D_cr1kc")
 
-[node name="blue" type="Button" parent="Quiz/Question/Container"]
-layout_direction = 2
-layout_mode = 2
-text = "Blue"
+[node name="Text" type="Label" parent="."]
+offset_left = 971.0
+offset_top = 122.0
+offset_right = 1545.0
+offset_bottom = 264.0
 
-[node name="Answer" type="CenterContainer" parent="Quiz"]
-visible = false
-offset_right = 145.0
-offset_bottom = 161.0
-
-[node name="Success" type="Label" parent="Quiz/Answer"]
-visible = false
-layout_mode = 2
-text = "Success"
-
-[node name="Particles" type="CPUParticles2D" parent="Quiz/Answer/Success"]
-position = Vector2(26.6957, 12.7391)
-emitting = false
-amount = 25
-lifetime = 3.0
-one_shot = true
-explosiveness = 0.9
-emission_shape = 1
-emission_sphere_radius = 23.5
-direction = Vector2(0, -1)
-initial_velocity_min = 80.0
-initial_velocity_max = 200.0
-tangential_accel_max = 97.87
-damping_min = 1.0
-damping_max = 1.0
-angle_max = 180.0
-scale_amount_min = 3.0
-scale_amount_max = 10.0
-
-[node name="Failure" type="Label" parent="Quiz/Answer"]
-visible = false
-layout_mode = 2
-text = "Failure
-"
+[connection signal="pressed" from="Fox/Button" to="." method="find_fox" binds= ["Fox"]]
+[connection signal="pressed" from="Guide/Button" to="." method="show_next_line"]

@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4ctp42w62vqm"]
+
+[ext_resource type="Script" path="res://Quiz.gd" id="1_lfw1v"]
+
+[node name="Quiz" type="Node2D"]
+scale = Vector2(4.6, 4.6)
+script = ExtResource("1_lfw1v")
+correct_answer = "red"
+
+[node name="Question" type="VBoxContainer" parent="."]
+offset_right = 145.0
+offset_bottom = 161.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Question"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Question/CenterContainer"]
+layout_mode = 2
+text = "Which color?"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Container" type="BoxContainer" parent="Question"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="red" type="Button" parent="Question/Container"]
+layout_mode = 2
+text = "Red"
+
+[node name="green" type="Button" parent="Question/Container"]
+layout_direction = 2
+layout_mode = 2
+text = "Green"
+
+[node name="blue" type="Button" parent="Question/Container"]
+layout_direction = 2
+layout_mode = 2
+text = "Blue"
+
+[node name="Feedback" type="CenterContainer" parent="."]
+visible = false
+offset_right = 145.0
+offset_bottom = 161.0
+
+[node name="Success" type="Label" parent="Feedback"]
+visible = false
+layout_mode = 2
+text = "Success"
+
+[node name="Particles" type="CPUParticles2D" parent="Feedback/Success"]
+position = Vector2(26.6957, 12.7391)
+emitting = false
+amount = 25
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.9
+emission_shape = 1
+emission_sphere_radius = 23.5
+direction = Vector2(0, -1)
+initial_velocity_min = 80.0
+initial_velocity_max = 200.0
+tangential_accel_max = 97.87
+damping_min = 1.0
+damping_max = 1.0
+angle_max = 180.0
+scale_amount_min = 3.0
+scale_amount_max = 10.0
+
+[node name="Failure" type="Label" parent="Feedback"]
+visible = false
+layout_mode = 2
+text = "Failure
+"
+
+[connection signal="pressed" from="Question/Container/red" to="." method="player_input" binds= ["red"]]
+[connection signal="pressed" from="Question/Container/green" to="." method="player_input" binds= ["green"]]
+[connection signal="pressed" from="Question/Container/blue" to="." method="player_input" binds= ["blue"]]
