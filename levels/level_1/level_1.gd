@@ -26,3 +26,7 @@ func find_fox(clickedNode):
 	if clickedNode == "Fox":
 		$Text.text = "Thats the fox!"
 		$Fox.found()
+
+
+func _on_fox_clicked():
+	pass # Replace with function body.
