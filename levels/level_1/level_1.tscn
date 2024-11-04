@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://32u1l6xuwuqp"]
+[gd_scene load_steps=10 format=3 uid="uid://32u1l6xuwuqp"]
 
-[ext_resource type="Texture2D" uid="uid://cb77gk2d0k7xi" path="res://art/level_1_bg.bmp" id="1_r4q3k"]
 [ext_resource type="Script" path="res://levels/level_1/level_1.gd" id="1_vecwi"]
+[ext_resource type="Texture2D" uid="uid://cb77gk2d0k7xi" path="res://art/level_1_bg.bmp" id="2_2anxl"]
 [ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://level_selector.tscn" id="2_c1egf"]
 [ext_resource type="PackedScene" uid="uid://d4ctp42w62vqm" path="res://quiz.tscn" id="3_tehkj"]
 [ext_resource type="Texture2D" uid="uid://d3av2fnfdvtiw" path="res://levels/level_1/Fox.png" id="5_ae5xq"]
@@ -43,12 +43,6 @@ _data = {
 "hide_fox": SubResource("Animation_ywwhe")
 }
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0kgk1"]
-size = Vector2(300, 600)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cr1kc"]
-size = Vector2(500, 1000)
-
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_vecwi")
 
@@ -56,9 +50,9 @@ script = ExtResource("1_vecwi")
 layer = -1
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(1387, 1018)
-scale = Vector2(1.58493, 1.58493)
-texture = ExtResource("1_r4q3k")
+position = Vector2(1369.5, 1040)
+scale = Vector2(1.52135, 1.57848)
+texture = ExtResource("2_2anxl")
 
 [node name="level_selector" parent="." instance=ExtResource("2_c1egf")]
 offset_left = 186.0
@@ -69,6 +63,7 @@ scale = Vector2(2.52, 2.64)
 next_scene = "res://level_view.tscn"
 
 [node name="Quiz" parent="." instance=ExtResource("3_tehkj")]
+position = Vector2(-1649, 1124)
 
 [node name="Fox" type="Sprite2D" parent="."]
 position = Vector2(1979, 1334)
@@ -81,31 +76,8 @@ libraries = {
 "": SubResource("AnimationLibrary_v6kqi")
 }
 
-[node name="Guide" type="Sprite2D" parent="."]
-position = Vector2(430, 964)
-texture = SubResource("PlaceholderTexture2D_0kgk1")
-
-[node name="Button" type="Button" parent="Guide"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -600.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Tree" type="Sprite2D" parent="."]
-z_index = 1
-position = Vector2(2338, 1087)
-scale = Vector2(1.40618, 1.73513)
-texture = SubResource("PlaceholderTexture2D_cr1kc")
-
 [node name="Text" type="Label" parent="."]
 offset_left = 971.0
 offset_top = 122.0
 offset_right = 1545.0
 offset_bottom = 264.0
-
-[connection signal="pressed" from="Guide/Button" to="." method="show_next_line"]
