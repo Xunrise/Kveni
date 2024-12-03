@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://32u1l6xuwuqp"]
+[gd_scene load_steps=9 format=3 uid="uid://32u1l6xuwuqp"]
 
 [ext_resource type="Script" path="res://levels/level_1/level_1.gd" id="1_vecwi"]
 [ext_resource type="Texture2D" uid="uid://cb77gk2d0k7xi" path="res://art/level_1_bg.bmp" id="2_2anxl"]
 [ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://level_selector.tscn" id="2_c1egf"]
-[ext_resource type="PackedScene" uid="uid://d4ctp42w62vqm" path="res://quiz.tscn" id="3_tehkj"]
-[ext_resource type="Texture2D" uid="uid://d3av2fnfdvtiw" path="res://levels/level_1/Fox.png" id="5_ae5xq"]
+[ext_resource type="PackedScene" path="res://quiz.tscn" id="3_tehkj"]
 [ext_resource type="Script" path="res://levels/level_1/Fox.gd" id="5_ry85t"]
 
 [sub_resource type="Animation" id="Animation_g7pst"]
@@ -68,7 +67,6 @@ position = Vector2(-1649, 1124)
 [node name="Fox" type="Sprite2D" parent="."]
 position = Vector2(1979, 1334)
 scale = Vector2(0.402017, 0.402017)
-texture = ExtResource("5_ae5xq")
 script = ExtResource("5_ry85t")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fox"]
