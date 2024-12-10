@@ -1,0 +1,143 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctbtibm62ah5r"]
+
+[ext_resource type="Texture2D" uid="uid://o3b381tlhsf3" path="res://art/drawings/Egg.png" id="1_lc820"]
+
+[sub_resource type="GDScript" id="GDScript_m4bpr"]
+script/source = "extends CharacterBody3D
+
+
+@export var MAX_SPEED = 5.0
+@export var JUMP_VELOCITY = 9.0
+@export var GRAVITY_SCALE = 1.5
+@export var MOVEMENT_SPEED = 25.0
+@export var breaking_speed = 15.0
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
+var airjump_ready = true
+
+func _ready() -> void:
+	pass
+
+func _physics_process(delta):
+	movement(delta)
+	print(velocity)
+	
+	
+func movement(delta) -> void:
+	if not is_on_floor():
+		apply_gravity(delta)
+	var input_direction = get_input_direction()
+	if input_direction:
+		apply_movement_to_velocity(input_direction, delta)
+	handle_jump()
+	apply_breaking(delta)
+	move_and_slide()
+	
+	
+func get_input_direction() -> Vector3:
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir = Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
+	return (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+func apply_gravity(delta) -> void:
+	velocity.y -= gravity * GRAVITY_SCALE * delta
+		
+func apply_movement_to_velocity(input_direction, delta) -> void:
+	velocity.x = velocity.x + input_direction.x * MOVEMENT_SPEED * delta
+	
+func handle_jump() -> void:
+	if is_on_floor():
+		airjump_ready = true
+	if Input.is_action_just_pressed(\"ui_accept\") and (is_on_floor() or airjump_ready):
+		jump()
+		if not is_on_floor():
+			airjump_ready = false
+
+func jump() -> void:
+	velocity.y = JUMP_VELOCITY
+		
+func apply_breaking(delta) -> void:
+	velocity.x = move_toward(velocity.x, 0.0, breaking_speed * delta)
+"
+
+[sub_resource type="GDScript" id="GDScript_7wh2q"]
+script/source = "extends Camera3D
+
+@export var dynamic_offset = Vector2(2.0, 2.0)
+@export var camera_speed = 1.0
+var cam_offset : Vector3 
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	cam_offset = position # Preserve camera position from editor
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	adjust_camera_horizontally(delta)
+	adjust_camera_vertically(delta)
+	
+
+#region Move camera according to velocity of character
+
+# Camera is being nudged using interpolations
+# Linear interpolation is being used together with ease
+# We slow down the linear interpolation steps depending on how close 
+# the current position is to the target position using transition_speed_factor
+# 
+# tf = 1 -> full speed
+# tf = 0.1 -> very slow
+# by using ease we substract from tf=1 so that we have a faster transition when far away (close to 1)
+# and a slower transition when close to the target location (closer to 0) 
+func adjust_camera_horizontally(delta):
+	var desired_offset := Vector2(cam_offset.x, 0.0)
+	if get_parent().velocity.x > 0:
+		desired_offset.x += dynamic_offset.x + cam_offset.x
+	elif get_parent().velocity.x < 0:
+		desired_offset.x -= dynamic_offset.x + cam_offset.x
+		
+	var transition_speed_factor = 1
+	if desired_offset.x != 0:
+		transition_speed_factor -= ease(position.x/desired_offset.x, 4.8)
+	position.x = lerpf(position.x, desired_offset.x, transition_speed_factor * camera_speed * delta)
+	
+func adjust_camera_vertically(delta):
+	var desired_offset := Vector2(0.0, cam_offset.y)
+	if get_parent().velocity.y > 0:
+		desired_offset.y += dynamic_offset.y
+	elif get_parent().velocity.y < 0:
+		desired_offset.y -= dynamic_offset.y
+		
+	var transition_speed_factor = 1
+	if desired_offset.y != 0:
+		transition_speed_factor -= ease(position.y/desired_offset.y, 4.8)
+		
+	position.y = lerpf(position.y, desired_offset.y, transition_speed_factor * camera_speed * delta)
+	
+#endregion
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rk1c8"]
+radius = 0.332599
+height = 1.03856
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1.00116, 0, 0, 0, 1.00116, 0, 0, 0, 1.00116, 0, 0.450518, 0)
+axis_lock_linear_z = true
+axis_lock_angular_z = true
+script = SubResource("GDScript_m4bpr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.998841, 0, 0, 0, 0.983667, 0.173447, 0, -0.173447, 0.983667, 0, 2.113, 6.005)
+script = SubResource("GDScript_7wh2q")
+dynamic_offset = Vector2(1, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.118547, 0, 0, 0, 0.118547, 0, 0, 0, 0.25, 0, 0, 0)
+gi_mode = 2
+pixel_size = 0.005
+shaded = true
+texture = ExtResource("1_lc820")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_rk1c8")

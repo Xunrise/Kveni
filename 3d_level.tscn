@@ -1,7 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://cl38p40inih5l"]
+[gd_scene load_steps=21 format=3 uid="uid://cl38p40inih5l"]
 
-[ext_resource type="Texture2D" uid="uid://d3av2fnfdvtiw" path="res://levels/level_1/Fox.png" id="1_16o3k"]
-[ext_resource type="Texture2D" uid="uid://4tr2br2jd857" path="res://levels/level_1/Trekant mikael full.svg" id="1_qk0sb"]
+[ext_resource type="PackedScene" uid="uid://ctbtibm62ah5r" path="res://player.tscn" id="1_3fxwm"]
+[ext_resource type="Texture2D" uid="uid://cvpoc0xnwkj08" path="res://art/drawings/Owl - Josefine.png" id="2_571tt"]
+[ext_resource type="PackedScene" uid="uid://cv04t5egume5d" path="res://wind_zone.tscn" id="3_u1f6k"]
+[ext_resource type="Texture2D" uid="uid://cxy88wpg2biyd" path="res://art/drawings/Tree.png" id="4_imb8q"]
+[ext_resource type="Texture2D" uid="uid://diuqdhngipwcy" path="res://art/drawings/Tree - Apples.png" id="5_ywafr"]
+[ext_resource type="Texture2D" uid="uid://d0c6fgv03qqqi" path="res://art/backgrounds/hand-painted-parallax-forest-1/0.png" id="6_honvo"]
+[ext_resource type="Texture2D" uid="uid://c4l3vy3sc6ki7" path="res://art/backgrounds/hand-painted-parallax-forest-1/1.png" id="7_bh5jj"]
+[ext_resource type="Texture2D" uid="uid://uik5kva0r6uj" path="res://art/backgrounds/hand-painted-parallax-forest-1/2.png" id="8_tls0o"]
+[ext_resource type="Texture2D" uid="uid://6jtl1cq0apb8" path="res://art/backgrounds/hand-painted-parallax-forest-1/3.png" id="9_l0t3r"]
+[ext_resource type="Texture2D" uid="uid://b1grdm2cvxl8x" path="res://art/backgrounds/hand-painted-parallax-forest-1/4.png" id="10_jmdig"]
+[ext_resource type="Texture2D" uid="uid://dkplf8lubsmat" path="res://art/backgrounds/hand-painted-parallax-forest-1/5.png" id="11_03ib0"]
+[ext_resource type="Texture2D" uid="uid://8hwr0j2qqu6v" path="res://art/drawings/Bunny.png" id="12_g7hty"]
+[ext_resource type="Texture2D" uid="uid://c2kujy6ik0dtl" path="res://art/drawings/Carrot .png" id="13_bmw7v"]
+[ext_resource type="Texture2D" uid="uid://bpgccv51r22o3" path="res://art/drawings/Mushroom.png" id="14_wrraw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qxoe4"]
 
@@ -13,101 +25,6 @@ background_mode = 2
 sky = SubResource("Sky_7hwgl")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mnm23"]
-
-[sub_resource type="GDScript" id="GDScript_m4bpr"]
-script/source = "extends CharacterBody3D
-
-
-@export var MAX_SPEED = 5.0
-@export var JUMP_VELOCITY = 9.0
-@export var GRAVITY_SCALE = 1.5
-@export var MOVEMENT_SPEED = 3.0
-@export var breaking_speed = 15.0
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
-
-
-func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * GRAVITY_SCALE * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = clamp(velocity.x + direction.x * MOVEMENT_SPEED, -MAX_SPEED, MAX_SPEED)
-	elif velocity.x != 0:
-		velocity.x = move_toward(velocity.x, 0.0, breaking_speed * delta)
-
-	move_and_slide()
-"
-
-[sub_resource type="GDScript" id="GDScript_7wh2q"]
-script/source = "extends Camera3D
-
-@export var dynamic_offset = Vector2(2.0, 2.0)
-@export var camera_speed = 1.0
-var cam_offset : Vector3 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	cam_offset = position # Preserve camera position from editor
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	adjust_camera_horizontally(delta)
-	adjust_camera_vertically(delta)
-	
-
-#region Move camera according to velocity of character
-
-# Camera is being nudged using interpolations
-# Linear interpolation is being used together with ease
-# We slow down the linear interpolation steps depending on how close 
-# the current position is to the target position using transition_speed_factor
-# 
-# tf = 1 -> full speed
-# tf = 0.1 -> very slow
-# by using ease we substract from tf=1 so that we have a faster transition when far away (close to 1)
-# and a slower transition when close to the target location (closer to 0) 
-func adjust_camera_horizontally(delta):
-	var desired_offset := Vector2(cam_offset.x, 0.0)
-	if get_parent().velocity.x > 0:
-		desired_offset.x += dynamic_offset.x + cam_offset.x
-	elif get_parent().velocity.x < 0:
-		desired_offset.x -= dynamic_offset.x + cam_offset.x
-		
-	var transition_speed_factor = 1
-	if desired_offset.x != 0:
-		transition_speed_factor -= ease(position.x/desired_offset.x, 4.8)
-	position.x = lerpf(position.x, desired_offset.x, transition_speed_factor * camera_speed * delta)
-	
-func adjust_camera_vertically(delta):
-	var desired_offset := Vector2(0.0, cam_offset.y)
-	if get_parent().velocity.y > 0:
-		desired_offset.y += dynamic_offset.y
-	elif get_parent().velocity.y < 0:
-		desired_offset.y -= dynamic_offset.y
-		
-	var transition_speed_factor = 1
-	if desired_offset.y != 0:
-		transition_speed_factor -= ease(position.y/desired_offset.y, 4.8)
-		
-	position.y = lerpf(position.y, desired_offset.y, transition_speed_factor * camera_speed * delta)
-	
-#endregion
-"
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rk1c8"]
-radius = 0.332599
-height = 1.03856
 
 [sub_resource type="GDScript" id="GDScript_ealeq"]
 script/source = "extends Area3D
@@ -130,41 +47,6 @@ func _on_body_entered(body: Node3D) -> void:
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_b7imc"]
 
-[sub_resource type="GDScript" id="GDScript_wn147"]
-resource_name = "wind"
-script/source = "extends Area3D
-@export var wind = Vector3()
-
-var player_character : CharacterBody3D = null
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if player_character: 
-		var addedForce = wind * delta
-		player_character.velocity += addedForce
-	
-
-
-func _on_body_entered(body: Node3D) -> void:
-	if body is CharacterBody3D:
-		print(\"Entered\")
-		player_character = body
-
-
-func _on_body_exited(body: Node3D) -> void:
-	if body == player_character:
-		print(\"Exited\")
-		player_character = null
-"
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_vdrqs"]
-size = Vector3(30.6429, 5.7124, 9.26752)
-
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -178,14 +60,6 @@ use_collision = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01891, 0, 0)
 material_override = SubResource("ShaderMaterial_mnm23")
 size = Vector3(11.8312, 0.515137, 1)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Stage/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.59059, 2.47646, 0)
-size = Vector3(3.80533, 0.515137, 1)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Stage/CSGBox3D/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.43509, -2.27509, 0)
-size = Vector3(3.80533, 0.515137, 1)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Stage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7976, 0.464846, 0)
@@ -230,26 +104,16 @@ size = Vector3(30.53, 1, 1)
 transform = Transform3D(0.962734, -0.270449, 0, 0.270449, 0.962734, 0, 0, 0, 1, 36.995, 7.32066, -0.304516)
 size = Vector3(1.8867, 11.3821, 1)
 
-[node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1.00116, 0, 0, 0, 1.00116, 0, 0, 0, 1.00116, 0, 0.450518, 0)
-axis_lock_linear_z = true
-axis_lock_angular_z = true
-script = SubResource("GDScript_m4bpr")
+[node name="CSGBox3D15" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.57168, 2.47646, 0)
+size = Vector3(3.80533, 0.515137, 1)
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(0.998841, 0, 0, 0, 0.983667, 0.173447, 0, -0.173447, 0.983667, 0, 2.113, 6.005)
-script = SubResource("GDScript_7wh2q")
-dynamic_offset = Vector2(1, 0)
+[node name="CSGBox3D16" type="CSGBox3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00677, 0.20137, 0)
+size = Vector3(3.80533, 0.515137, 1)
 
-[node name="Sprite3D" type="Sprite3D" parent="Player"]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-gi_mode = 2
-pixel_size = 0.005
-shaded = true
-texture = ExtResource("1_qk0sb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("CapsuleShape3D_rk1c8")
+[node name="Player" parent="." instance=ExtResource("1_3fxwm")]
+transform = Transform3D(0.982483, 0, 0, 0, 0.982483, 0, 0, 0, 0.982483, 0, 0.450518, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(0.586368, -0.344918, 0.732942, -0.0893604, 0.871751, 0.481731, -0.805101, -0.347967, 0.480345, 1.8125, 1.33789, 0.702466)
@@ -263,21 +127,90 @@ script = SubResource("GDScript_ealeq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Deathbox"]
 shape = SubResource("WorldBoundaryShape3D_b7imc")
 
-[node name="Fox" type="Sprite3D" parent="."]
-transform = Transform3D(0.34459, 0, 0, 0, 0.34459, 0, 0, 0, 1, 28.6208, 15.7878, -6.24117)
-texture = ExtResource("1_16o3k")
+[node name="Owl" type="Sprite3D" parent="."]
+transform = Transform3D(0.093918, 0, 0, 0, 0.093918, 0, 0, 0, 1, 25.5427, 14.2021, -0.862854)
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_571tt")
 
-[node name="Wind" type="Area3D" parent="."]
-transform = Transform3D(0.999994, 0.00335102, 0, -0.00335102, 0.999994, 0, 0, 0, 1, 60.4637, 9.39937, 0)
-gravity_space_override = 3
-linear_damp = 31.15
-script = SubResource("GDScript_wn147")
-wind = Vector3(-100, 0, 0)
+[node name="Wind" parent="." instance=ExtResource("3_u1f6k")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wind"]
-transform = Transform3D(0.958968, -0.283513, 0, 0.283513, 0.958968, 0, 0, 0, 1, 5.405, 0, -0.344)
-shape = SubResource("BoxShape3D_vdrqs")
+[node name="Tree" type="Sprite3D" parent="."]
+transform = Transform3D(0.25997, -0.000847584, 0.000604374, 0.000847413, 0.259969, 0.00109177, -0.000158042, -0.000283315, 0.999999, 27.9868, 15.0583, -0.166854)
+shaded = true
+alpha_cut = 1
+texture = ExtResource("4_imb8q")
+
+[node name="Apples" type="Sprite3D" parent="Tree"]
+transform = Transform3D(1, -1.1579e-10, 1.16415e-10, -1.26363e-10, 1, 2.32831e-10, -2.91038e-11, -1.16415e-10, 1, 0, 2.54205, 0.288898)
+shaded = true
+alpha_cut = 1
+texture = ExtResource("5_ywafr")
+
+[node name="Background" type="Node3D" parent="."]
+transform = Transform3D(1.95244, 0, 0, 0, 1.95244, 0, 0, 0, 1, -21.7094, -4.39971, -4.17497)
+
+[node name="0" type="Sprite3D" parent="Background"]
+transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, -0.000411987, 3.69549e-05, -0.157435)
+centered = false
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("6_honvo")
+
+[node name="1" type="Sprite3D" parent="Background"]
+transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, 7.34329e-05, 0.73388, -1.1263)
+visible = false
+centered = false
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("7_bh5jj")
+
+[node name="2" type="Sprite3D" parent="Background"]
+transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, -0.000282288, 2.3365e-05, -1.33649)
+visible = false
+centered = false
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("8_tls0o")
+
+[node name="3" type="Sprite3D" parent="Background"]
+transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, -0.000118256, 5.96046e-06, -2.83643)
+centered = false
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("9_l0t3r")
+
+[node name="4" type="Sprite3D" parent="Background"]
+transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, 0.000206947, -2.83718e-05, -5.80618)
+centered = false
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("10_jmdig")
+
+[node name="5" type="Sprite3D" parent="Background"]
+transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, 0.000530243, -6.27041e-05, -8.75965)
+centered = false
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("11_03ib0")
+
+[node name="Bunny" type="Sprite3D" parent="."]
+transform = Transform3D(0.0452347, 5.6455e-05, -9.67524e-05, -5.64608e-05, 0.0452347, -0.00133838, 4.30056e-06, 6.05468e-05, 0.999999, 29.4687, 13.6151, 0.00451756)
+shaded = true
+alpha_cut = 1
+texture = ExtResource("12_g7hty")
+
+[node name="Carrot" type="Sprite3D" parent="Bunny"]
+alpha_cut = 1
+texture = ExtResource("13_bmw7v")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8581, 23.7871, 29.0638)
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.141808, 0, 0, 0, 0.141808, 0, 0, 0, 0.797625, 0, 0, 0)
+texture = ExtResource("14_wrraw")
 
 [connection signal="body_entered" from="Deathbox" to="Deathbox" method="_on_body_entered"]
-[connection signal="body_entered" from="Wind" to="Wind" method="_on_body_entered"]
-[connection signal="body_exited" from="Wind" to="Wind" method="_on_body_exited"]
