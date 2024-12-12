@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqy03psyk5hxk"]
+
+[ext_resource type="PackedScene" uid="uid://ctbtibm62ah5r" path="res://player.tscn" id="1_0hvgr"]
+
+[node name="Nest" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_0hvgr")]
+transform = Transform3D(1.00116, 0, 0, 0, 1.00116, 0, 0, 0, 1.00116, 0.219, 0.451, 0)
+
+[node name="Nest" type="CSGCombiner3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Nest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103087, -0.203537, -0.0473967)
+size = Vector3(4.28308, 0.33728, 3.16218)
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="Nest"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.710719, 0.103087, 0.0190296, -0.0473967)
+inner_radius = 1.90636
+outer_radius = 2.48169
+sides = 12
+ring_sides = 5
