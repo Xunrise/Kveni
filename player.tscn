@@ -166,7 +166,10 @@ height = 0.930734
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1.00116, 0, 0, 0, 1.00116, 0, 0, 0, 1.00116, 0, 0.450518, 0)
+axis_lock_linear_z = true
+axis_lock_angular_z = true
 script = SubResource("GDScript_m4bpr")
+JUMP_VELOCITY = 7.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.998841, 0, 0, 0, 0.983667, 0.173447, 0, -0.173447, 0.983667, 0, 2.113, 6.005)
