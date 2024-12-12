@@ -173,6 +173,7 @@ JUMP_VELOCITY = 7.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.998841, 0, 0, 0, 0.983667, 0.173447, 0, -0.173447, 0.983667, 0, 2.113, 6.005)
+fov = 90.0
 script = SubResource("GDScript_7wh2q")
 dynamic_offset = Vector2(1, 0)
 
