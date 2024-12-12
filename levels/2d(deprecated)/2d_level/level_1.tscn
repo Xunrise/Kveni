@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://32u1l6xuwuqp"]
 
-[ext_resource type="Script" path="res://levels/level_1/level_1.gd" id="1_vecwi"]
+[ext_resource type="Script" path="res://levels/2d(deprecated)/2d_level/level_1.gd" id="1_vecwi"]
 [ext_resource type="Texture2D" uid="uid://cb77gk2d0k7xi" path="res://art/level_1_bg.bmp" id="2_2anxl"]
-[ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://level_selector.tscn" id="2_c1egf"]
-[ext_resource type="PackedScene" path="res://quiz.tscn" id="3_tehkj"]
-[ext_resource type="Script" path="res://levels/level_1/Fox.gd" id="5_ry85t"]
+[ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://levels/2d(deprecated)/level_selector.tscn" id="2_c1egf"]
+[ext_resource type="PackedScene" uid="uid://d4ctp42w62vqm" path="res://level_objects/quiz/quiz.tscn" id="3_tehkj"]
+[ext_resource type="Script" path="res://levels/2d(deprecated)/2d_level/Fox.gd" id="5_ry85t"]
 
 [sub_resource type="Animation" id="Animation_g7pst"]
 length = 0.001

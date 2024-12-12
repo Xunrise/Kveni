@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5cecwse31sa1"]
 
-[ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://level_selector.tscn" id="1_qdect"]
-[ext_resource type="Texture2D" uid="uid://cif6p141nw80s" path="res://art/level_view_bg.bmp" id="2_xc3l7"]
+[ext_resource type="PackedScene" uid="uid://ct0wcskl3dui0" path="res://levels/2d(deprecated)/level_selector.tscn" id="1_cdah8"]
+[ext_resource type="Texture2D" uid="uid://cif6p141nw80s" path="res://art/level_view_bg.bmp" id="2_5bapw"]
 
 [node name="LevelView" type="Node2D"]
 
-[node name="level_selector" parent="." instance=ExtResource("1_qdect")]
+[node name="level_selector" parent="." instance=ExtResource("1_cdah8")]
 offset_left = 1848.0
 offset_top = 657.0
 offset_right = 2048.0
@@ -19,10 +19,10 @@ layer = -1
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
 position = Vector2(1577, 1049)
 scale = Vector2(2.25027, 2.25027)
-texture = ExtResource("2_xc3l7")
+texture = ExtResource("2_5bapw")
 metadata/_edit_lock_ = true
 
-[node name="level_selector2" parent="." instance=ExtResource("1_qdect")]
+[node name="level_selector2" parent="." instance=ExtResource("1_cdah8")]
 offset_left = 446.0
 offset_top = 1703.0
 offset_right = 646.0
@@ -30,7 +30,7 @@ offset_bottom = 1853.0
 scale = Vector2(1.44, 1.96)
 metadata/level_to_load = 2
 
-[node name="level_selector3" parent="." instance=ExtResource("1_qdect")]
+[node name="level_selector3" parent="." instance=ExtResource("1_cdah8")]
 offset_left = 2001.0
 offset_top = 1319.0
 offset_right = 2201.0

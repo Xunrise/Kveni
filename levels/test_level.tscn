@@ -1,19 +1,20 @@
-[gd_scene load_steps=21 format=3 uid="uid://cl38p40inih5l"]
+[gd_scene load_steps=20 format=3 uid="uid://cl38p40inih5l"]
 
-[ext_resource type="PackedScene" uid="uid://ctbtibm62ah5r" path="res://player.tscn" id="1_3fxwm"]
-[ext_resource type="Texture2D" uid="uid://cvpoc0xnwkj08" path="res://art/drawings/Owl - Josefine.png" id="2_571tt"]
-[ext_resource type="PackedScene" uid="uid://cv04t5egume5d" path="res://wind_zone.tscn" id="3_u1f6k"]
-[ext_resource type="Texture2D" uid="uid://cxy88wpg2biyd" path="res://art/drawings/Tree.png" id="4_imb8q"]
-[ext_resource type="Texture2D" uid="uid://diuqdhngipwcy" path="res://art/drawings/Tree - Apples.png" id="5_ywafr"]
-[ext_resource type="Texture2D" uid="uid://d0c6fgv03qqqi" path="res://art/backgrounds/hand-painted-parallax-forest-1/0.png" id="6_honvo"]
-[ext_resource type="Texture2D" uid="uid://c4l3vy3sc6ki7" path="res://art/backgrounds/hand-painted-parallax-forest-1/1.png" id="7_bh5jj"]
-[ext_resource type="Texture2D" uid="uid://uik5kva0r6uj" path="res://art/backgrounds/hand-painted-parallax-forest-1/2.png" id="8_tls0o"]
-[ext_resource type="Texture2D" uid="uid://6jtl1cq0apb8" path="res://art/backgrounds/hand-painted-parallax-forest-1/3.png" id="9_l0t3r"]
-[ext_resource type="Texture2D" uid="uid://b1grdm2cvxl8x" path="res://art/backgrounds/hand-painted-parallax-forest-1/4.png" id="10_jmdig"]
-[ext_resource type="Texture2D" uid="uid://dkplf8lubsmat" path="res://art/backgrounds/hand-painted-parallax-forest-1/5.png" id="11_03ib0"]
-[ext_resource type="Texture2D" uid="uid://8hwr0j2qqu6v" path="res://art/drawings/Bunny.png" id="12_g7hty"]
-[ext_resource type="Texture2D" uid="uid://c2kujy6ik0dtl" path="res://art/drawings/Carrot .png" id="13_bmw7v"]
-[ext_resource type="Texture2D" uid="uid://bpgccv51r22o3" path="res://art/drawings/Mushroom.png" id="14_wrraw"]
+[ext_resource type="PackedScene" uid="uid://ctbtibm62ah5r" path="res://player.tscn" id="1_mpeoa"]
+[ext_resource type="PackedScene" uid="uid://bv8kvcssusmac" path="res://level_objects/deathbox.tscn" id="2_8b1rm"]
+[ext_resource type="Texture2D" uid="uid://cvpoc0xnwkj08" path="res://art/drawings/Owl - Josefine.png" id="3_ono0b"]
+[ext_resource type="PackedScene" uid="uid://cv04t5egume5d" path="res://level_objects/wind_zone.tscn" id="4_v4c7m"]
+[ext_resource type="Texture2D" uid="uid://cxy88wpg2biyd" path="res://art/drawings/Tree.png" id="5_db82b"]
+[ext_resource type="Texture2D" uid="uid://diuqdhngipwcy" path="res://art/drawings/Tree - Apples.png" id="6_atpil"]
+[ext_resource type="Texture2D" uid="uid://d0c6fgv03qqqi" path="res://art/backgrounds/hand-painted-parallax-forest-1/0.png" id="7_34st5"]
+[ext_resource type="Texture2D" uid="uid://c4l3vy3sc6ki7" path="res://art/backgrounds/hand-painted-parallax-forest-1/1.png" id="8_i70am"]
+[ext_resource type="Texture2D" uid="uid://uik5kva0r6uj" path="res://art/backgrounds/hand-painted-parallax-forest-1/2.png" id="9_ya8yc"]
+[ext_resource type="Texture2D" uid="uid://6jtl1cq0apb8" path="res://art/backgrounds/hand-painted-parallax-forest-1/3.png" id="10_tejha"]
+[ext_resource type="Texture2D" uid="uid://b1grdm2cvxl8x" path="res://art/backgrounds/hand-painted-parallax-forest-1/4.png" id="11_6mrho"]
+[ext_resource type="Texture2D" uid="uid://dkplf8lubsmat" path="res://art/backgrounds/hand-painted-parallax-forest-1/5.png" id="12_xsw6l"]
+[ext_resource type="Texture2D" uid="uid://8hwr0j2qqu6v" path="res://art/drawings/Bunny.png" id="13_dg5o5"]
+[ext_resource type="Texture2D" uid="uid://c2kujy6ik0dtl" path="res://art/drawings/Carrot .png" id="14_aoe37"]
+[ext_resource type="Texture2D" uid="uid://bpgccv51r22o3" path="res://art/drawings/Mushroom.png" id="15_bepir"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qxoe4"]
 
@@ -25,27 +26,6 @@ background_mode = 2
 sky = SubResource("Sky_7hwgl")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mnm23"]
-
-[sub_resource type="GDScript" id="GDScript_ealeq"]
-script/source = "extends Area3D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-
-func _on_body_entered(body: Node3D) -> void:
-	get_tree().reload_current_scene()
-"
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_b7imc"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -112,7 +92,7 @@ size = Vector3(3.80533, 0.515137, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.00677, 0.20137, 0)
 size = Vector3(3.80533, 0.515137, 1)
 
-[node name="Player" parent="." instance=ExtResource("1_3fxwm")]
+[node name="Player" parent="." instance=ExtResource("1_mpeoa")]
 transform = Transform3D(0.982483, 0, 0, 0, 0.982483, 0, 0, 0, 0.982483, 0, 0.450518, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
@@ -120,32 +100,27 @@ transform = Transform3D(0.586368, -0.344918, 0.732942, -0.0893604, 0.871751, 0.4
 light_energy = 5.676
 spot_angle = 22.6523
 
-[node name="Deathbox" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
-script = SubResource("GDScript_ealeq")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Deathbox"]
-shape = SubResource("WorldBoundaryShape3D_b7imc")
+[node name="Deathbox" parent="." instance=ExtResource("2_8b1rm")]
 
 [node name="Owl" type="Sprite3D" parent="."]
 transform = Transform3D(0.093918, 0, 0, 0, 0.093918, 0, 0, 0, 1, 25.5427, 14.2021, -0.862854)
 shaded = true
 alpha_cut = 1
-texture = ExtResource("2_571tt")
+texture = ExtResource("3_ono0b")
 
-[node name="Wind" parent="." instance=ExtResource("3_u1f6k")]
+[node name="Wind" parent="." instance=ExtResource("4_v4c7m")]
 
 [node name="Tree" type="Sprite3D" parent="."]
 transform = Transform3D(0.25997, -0.000847584, 0.000604374, 0.000847413, 0.259969, 0.00109177, -0.000158042, -0.000283315, 0.999999, 27.9868, 15.0583, -0.166854)
 shaded = true
 alpha_cut = 1
-texture = ExtResource("4_imb8q")
+texture = ExtResource("5_db82b")
 
 [node name="Apples" type="Sprite3D" parent="Tree"]
 transform = Transform3D(1, -1.1579e-10, 1.16415e-10, -1.26363e-10, 1, 2.32831e-10, -2.91038e-11, -1.16415e-10, 1, 0, 2.54205, 0.288898)
 shaded = true
 alpha_cut = 1
-texture = ExtResource("5_ywafr")
+texture = ExtResource("6_atpil")
 
 [node name="Background" type="Node3D" parent="."]
 transform = Transform3D(1.95244, 0, 0, 0, 1.95244, 0, 0, 0, 1, -21.7094, -4.39971, -4.17497)
@@ -155,7 +130,7 @@ transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-
 centered = false
 double_sided = false
 alpha_cut = 1
-texture = ExtResource("6_honvo")
+texture = ExtResource("7_34st5")
 
 [node name="1" type="Sprite3D" parent="Background"]
 transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, 7.34329e-05, 0.73388, -1.1263)
@@ -163,7 +138,7 @@ visible = false
 centered = false
 double_sided = false
 alpha_cut = 1
-texture = ExtResource("7_bh5jj")
+texture = ExtResource("8_i70am")
 
 [node name="2" type="Sprite3D" parent="Background"]
 transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, -0.000282288, 2.3365e-05, -1.33649)
@@ -171,38 +146,38 @@ visible = false
 centered = false
 double_sided = false
 alpha_cut = 1
-texture = ExtResource("8_tls0o")
+texture = ExtResource("9_ya8yc")
 
 [node name="3" type="Sprite3D" parent="Background"]
 transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, -0.000118256, 5.96046e-06, -2.83643)
 centered = false
 double_sided = false
 alpha_cut = 1
-texture = ExtResource("9_l0t3r")
+texture = ExtResource("10_tejha")
 
 [node name="4" type="Sprite3D" parent="Background"]
 transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, 0.000206947, -2.83718e-05, -5.80618)
 centered = false
 double_sided = false
 alpha_cut = 1
-texture = ExtResource("10_jmdig")
+texture = ExtResource("11_6mrho")
 
 [node name="5" type="Sprite3D" parent="Background"]
 transform = Transform3D(1, 0.000433159, -0.000350625, -0.000433144, 1, 3.70109e-05, 0.000350644, -3.68368e-05, 1, 0.000530243, -6.27041e-05, -8.75965)
 centered = false
 double_sided = false
 alpha_cut = 1
-texture = ExtResource("11_03ib0")
+texture = ExtResource("12_xsw6l")
 
 [node name="Bunny" type="Sprite3D" parent="."]
 transform = Transform3D(0.0452347, 5.6455e-05, -9.67524e-05, -5.64608e-05, 0.0452347, -0.00133838, 4.30056e-06, 6.05468e-05, 0.999999, 29.4687, 13.6151, 0.00451756)
 shaded = true
 alpha_cut = 1
-texture = ExtResource("12_g7hty")
+texture = ExtResource("13_dg5o5")
 
 [node name="Carrot" type="Sprite3D" parent="Bunny"]
 alpha_cut = 1
-texture = ExtResource("13_bmw7v")
+texture = ExtResource("14_aoe37")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.8581, 23.7871, 29.0638)
@@ -211,6 +186,4 @@ directional_shadow_blend_splits = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.141808, 0, 0, 0, 0.141808, 0, 0, 0, 0.797625, 0, 0, 0)
-texture = ExtResource("14_wrraw")
-
-[connection signal="body_entered" from="Deathbox" to="Deathbox" method="_on_body_entered"]
+texture = ExtResource("15_bepir")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d4ctp42w62vqm"]
 
-[ext_resource type="Script" path="res://Quiz.gd" id="1_lfw1v"]
+[ext_resource type="Script" path="res://level_objects/quiz/Quiz.gd" id="1_lfw1v"]
 
 [node name="Quiz" type="Node2D"]
 scale = Vector2(4.6, 4.6)

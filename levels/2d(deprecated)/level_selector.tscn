@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ct0wcskl3dui0"]
 
-[ext_resource type="Script" path="res://level_selector.gd" id="1_26c28"]
+[ext_resource type="Script" path="res://levels/2d(deprecated)/level_selector.gd" id="1_26c28"]
 
 [node name="level_selector" type="TextureButton"]
 custom_minimum_size = Vector2(200, 150)

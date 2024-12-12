@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3av2fnfdvtiw"
-path.s3tc="res://.godot/imported/Fox.png-1abe8969cf3a7fe1dd834e08e492725d.s3tc.ctex"
-path.etc2="res://.godot/imported/Fox.png-1abe8969cf3a7fe1dd834e08e492725d.etc2.ctex"
+path.s3tc="res://.godot/imported/Fox.png-e577e0562317d9d090fce632eedf5b6c.s3tc.ctex"
+path.etc2="res://.godot/imported/Fox.png-e577e0562317d9d090fce632eedf5b6c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://levels/level_1/Fox.png"
-dest_files=["res://.godot/imported/Fox.png-1abe8969cf3a7fe1dd834e08e492725d.s3tc.ctex", "res://.godot/imported/Fox.png-1abe8969cf3a7fe1dd834e08e492725d.etc2.ctex"]
+source_file="res://levels/2d(deprecated)/2d_level/Fox.png"
+dest_files=["res://.godot/imported/Fox.png-e577e0562317d9d090fce632eedf5b6c.s3tc.ctex", "res://.godot/imported/Fox.png-e577e0562317d9d090fce632eedf5b6c.etc2.ctex"]
 
 [params]
 
