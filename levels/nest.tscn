@@ -1,21 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqy03psyk5hxk"]
+[gd_scene load_steps=4 format=3 uid="uid://cqy03psyk5hxk"]
 
 [ext_resource type="PackedScene" uid="uid://ctbtibm62ah5r" path="res://player.tscn" id="1_0hvgr"]
+[ext_resource type="PackedScene" uid="uid://cxnjctwn4buaa" path="res://level_objects/world_environment.tscn" id="1_y2gh3"]
+[ext_resource type="PackedScene" uid="uid://cv04t5egume5d" path="res://level_objects/wind_zone.tscn" id="2_rnmxq"]
 
 [node name="Nest" type="Node3D"]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_y2gh3")]
 
 [node name="Player" parent="." instance=ExtResource("1_0hvgr")]
 transform = Transform3D(1.00116, 0, 0, 0, 1.00116, 0, 0, 0, 1.00116, 0.219, 0.451, 0)
 
 [node name="Nest" type="CSGCombiner3D" parent="."]
+use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Nest"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.103087, -0.203537, -0.0473967)
 size = Vector3(4.28308, 0.33728, 3.16218)
 
 [node name="CSGTorus3D" type="CSGTorus3D" parent="Nest"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.710719, 0.103087, 0.0190296, -0.0473967)
+transform = Transform3D(1, 0, 0, 0, 1.48448, 0, 0, 0, 0.710719, 0.103087, 0.244682, -0.0473967)
 inner_radius = 1.90636
 outer_radius = 2.48169
 sides = 12
 ring_sides = 5
+
+[node name="CSGTorus3D2" type="CSGTorus3D" parent="Nest"]
+transform = Transform3D(1, 0, 0, 0, 1.01216, 0, 0, 0, 0.710719, 0.103087, 0.689939, -0.0473967)
+inner_radius = 2.24142
+outer_radius = 2.90081
+sides = 12
+ring_sides = 5
+
+[node name="Wind" parent="." instance=ExtResource("2_rnmxq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.035656, -3.68311, -0.00619316)
+
+[node name="Wind2" parent="." instance=ExtResource("2_rnmxq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.7923, 2.1623, -0.00619316)

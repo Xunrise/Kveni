@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxnjctwn4buaa"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qxoe4"]
+
+[sub_resource type="Sky" id="Sky_7hwgl"]
+sky_material = SubResource("ProceduralSkyMaterial_qxoe4")
+
+[sub_resource type="Environment" id="Environment_1nx0j"]
+background_mode = 2
+sky = SubResource("Sky_7hwgl")
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_1nx0j")
