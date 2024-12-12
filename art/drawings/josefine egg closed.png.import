@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o3b381tlhsf3"
-path.s3tc="res://.godot/imported/Egg.png-3d6cb8c639b2ca34521dd9aa80c5c528.s3tc.ctex"
-path.etc2="res://.godot/imported/Egg.png-3d6cb8c639b2ca34521dd9aa80c5c528.etc2.ctex"
+uid="uid://b4rj10klqyj5i"
+path.s3tc="res://.godot/imported/josefine egg closed.png-7c08df3ed8cf7411b105e771362a3174.s3tc.ctex"
+path.etc2="res://.godot/imported/josefine egg closed.png-7c08df3ed8cf7411b105e771362a3174.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://art/drawings/Egg.png"
-dest_files=["res://.godot/imported/Egg.png-3d6cb8c639b2ca34521dd9aa80c5c528.s3tc.ctex", "res://.godot/imported/Egg.png-3d6cb8c639b2ca34521dd9aa80c5c528.etc2.ctex"]
+source_file="res://art/drawings/josefine egg closed.png"
+dest_files=["res://.godot/imported/josefine egg closed.png-7c08df3ed8cf7411b105e771362a3174.s3tc.ctex", "res://.godot/imported/josefine egg closed.png-7c08df3ed8cf7411b105e771362a3174.etc2.ctex"]
 
 [params]
 

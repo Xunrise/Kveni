@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctbtibm62ah5r"]
+[gd_scene load_steps=7 format=3 uid="uid://ctbtibm62ah5r"]
 
-[ext_resource type="Texture2D" uid="uid://o3b381tlhsf3" path="res://art/drawings/Egg.png" id="1_lc820"]
+[ext_resource type="Texture2D" uid="uid://o3b381tlhsf3" path="res://art/drawings/josefine egg open.png" id="1_lc820"]
+[ext_resource type="Texture2D" uid="uid://b4rj10klqyj5i" path="res://art/drawings/josefine egg closed.png" id="2_qkg4g"]
 
 [sub_resource type="GDScript" id="GDScript_m4bpr"]
 script/source = "extends CharacterBody3D
@@ -15,14 +16,42 @@ script/source = "extends CharacterBody3D
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting(\"physics/3d/default_gravity\")
 var airjump_ready = true
+var radius = 30
+var uprightening_speed = 5
 
 func _ready() -> void:
 	pass
 
 func _physics_process(delta):
 	movement(delta)
-	print(velocity)
+	rotation(delta)
 	
+	
+func rotation(delta) -> void:
+	if velocity.length() < 1:
+		uprighten(delta)
+	else:
+		$Sprite3D.rotate_z(-calculate_rotation_speed(velocity))
+		$Sprite3D.frame = 1
+		$Sprite3D.position.y = 0
+		
+func uprighten(delta) -> void:
+	if upright():
+		$Sprite3D.frame = 0
+		$Sprite3D.position.y = 0.1
+		return
+	else:
+		$Sprite3D.rotation.z = move_toward($Sprite3D.rotation.z, 0, uprightening_speed * delta)
+	
+
+func upright() -> bool:
+	return $Sprite3D.rotation.z == 0
+		
+	
+func calculate_rotation_speed(velocity: Vector3) -> float:
+	var speed = velocity.x
+	var rotation_speed = speed / radius
+	return rotation_speed
 	
 func movement(delta) -> void:
 	if not is_on_floor():
@@ -117,14 +146,26 @@ func adjust_camera_vertically(delta):
 #endregion
 "
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_tt2a0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lc820")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_qkg4g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rk1c8"]
 radius = 0.332599
-height = 1.03856
+height = 0.930734
 
 [node name="Player" type="CharacterBody3D"]
 transform = Transform3D(1.00116, 0, 0, 0, 1.00116, 0, 0, 0, 1.00116, 0, 0.450518, 0)
-axis_lock_linear_z = true
-axis_lock_angular_z = true
 script = SubResource("GDScript_m4bpr")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -132,12 +173,12 @@ transform = Transform3D(0.998841, 0, 0, 0, 0.983667, 0.173447, 0, -0.173447, 0.9
 script = SubResource("GDScript_7wh2q")
 dynamic_offset = Vector2(1, 0)
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.118547, 0, 0, 0, 0.118547, 0, 0, 0, 0.25, 0, 0, 0)
+[node name="Sprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.118547, 0, 0, 0, 0.118547, 0, 0, 0, 0.25, 0, -0.0377491, 0)
 gi_mode = 2
 pixel_size = 0.005
 shaded = true
-texture = ExtResource("1_lc820")
+sprite_frames = SubResource("SpriteFrames_tt2a0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_rk1c8")
