@@ -1,54 +1,77 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4ctp42w62vqm"]
+[gd_scene load_steps=6 format=3 uid="uid://d4ctp42w62vqm"]
 
 [ext_resource type="Script" path="res://level_objects/quiz/Quiz.gd" id="1_lfw1v"]
 
-[node name="Quiz" type="Node2D"]
-scale = Vector2(4.6, 4.6)
+[sub_resource type="QuadMesh" id="QuadMesh_1khtk"]
+size = Vector2(3, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_mhxbe"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jugjc"]
+resource_local_to_scene = true
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_mhxbe")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bmrql"]
+size = Vector3(3, 2, 0.1)
+
+[node name="Quiz" type="Node3D"]
 script = ExtResource("1_lfw1v")
 correct_answer = "red"
 
-[node name="Question" type="VBoxContainer" parent="."]
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="Control" type="Control" parent="SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ff" type="VBoxContainer" parent="SubViewport/Control"]
 offset_right = 145.0
 offset_bottom = 161.0
 
-[node name="CenterContainer" type="CenterContainer" parent="Question"]
+[node name="CenterContainer" type="CenterContainer" parent="SubViewport/Control/ff"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Question/CenterContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport/Control/ff/CenterContainer"]
 layout_mode = 2
 text = "Which color?"
 fit_content = true
 autowrap_mode = 0
 
-[node name="Container" type="BoxContainer" parent="Question"]
+[node name="Container" type="BoxContainer" parent="SubViewport/Control/ff"]
 layout_direction = 2
 layout_mode = 2
 
-[node name="red" type="Button" parent="Question/Container"]
+[node name="red" type="Button" parent="SubViewport/Control/ff/Container"]
 layout_mode = 2
 text = "Red"
 
-[node name="green" type="Button" parent="Question/Container"]
+[node name="green" type="Button" parent="SubViewport/Control/ff/Container"]
 layout_direction = 2
 layout_mode = 2
 text = "Green"
 
-[node name="blue" type="Button" parent="Question/Container"]
+[node name="blue" type="Button" parent="SubViewport/Control/ff/Container"]
 layout_direction = 2
 layout_mode = 2
 text = "Blue"
 
-[node name="Feedback" type="CenterContainer" parent="."]
+[node name="Feedback" type="CenterContainer" parent="SubViewport/Control"]
 visible = false
 offset_right = 145.0
 offset_bottom = 161.0
 
-[node name="Success" type="Label" parent="Feedback"]
+[node name="Success" type="Label" parent="SubViewport/Control/Feedback"]
 visible = false
 layout_mode = 2
 text = "Success"
 
-[node name="Particles" type="CPUParticles2D" parent="Feedback/Success"]
+[node name="Particles" type="CPUParticles2D" parent="SubViewport/Control/Feedback/Success"]
 position = Vector2(26.6957, 12.7391)
 emitting = false
 amount = 25
@@ -67,12 +90,23 @@ angle_max = 180.0
 scale_amount_min = 3.0
 scale_amount_max = 10.0
 
-[node name="Failure" type="Label" parent="Feedback"]
+[node name="Failure" type="Label" parent="SubViewport/Control/Feedback"]
 visible = false
 layout_mode = 2
 text = "Failure
 "
 
-[connection signal="pressed" from="Question/Container/red" to="." method="player_input" binds= ["red"]]
-[connection signal="pressed" from="Question/Container/green" to="." method="player_input" binds= ["green"]]
-[connection signal="pressed" from="Question/Container/blue" to="." method="player_input" binds= ["blue"]]
+[node name="Quad" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_1khtk")
+surface_material_override/0 = SubResource("StandardMaterial3D_jugjc")
+
+[node name="Area3D" type="Area3D" parent="Quad"]
+collision_layer = 2
+input_capture_on_drag = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Quad/Area3D"]
+shape = SubResource("BoxShape3D_bmrql")
+
+[connection signal="pressed" from="SubViewport/Control/ff/Container/red" to="." method="player_input"]
+[connection signal="pressed" from="SubViewport/Control/ff/Container/green" to="." method="player_input"]
+[connection signal="pressed" from="SubViewport/Control/ff/Container/blue" to="." method="player_input"]

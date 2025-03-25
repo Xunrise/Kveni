@@ -1,4 +1,4 @@
-extends Node2D
+extends Node3D
 @export var correct_answer : String
 var question
 

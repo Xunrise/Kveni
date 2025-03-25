@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://1jtsstlpf07r"]
+
+[node name="House" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="roof square2" type="CSGCombiner3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86676, 0)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/roof square2"]
+transform = Transform3D(-1, -4.37114e-08, -7.57103e-08, 0, 0.866025, -0.5, 8.74228e-08, -0.5, -0.866025, -0.0499134, 0, -2.56893)
+size = Vector3(19.937, 0.544434, 6.31653)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/roof square2"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -0.0151634, 0, 2.62337)
+size = Vector3(19.8035, 0.544434, 6.31653)
+
+[node name="body2" type="CSGBox3D" parent="CSGCombiner3D"]
+size = Vector3(18.7174, 7.1951, 9.06219)
+
+[node name="cutout" type="CSGBox3D" parent="CSGCombiner3D/body2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0187531, 0.165176, 0.0258274)
+operation = 2
+size = Vector3(18.0561, 7.14234, 8.72839)
+
+[node name="intersection" type="CSGCylinder3D" parent="CSGCombiner3D/body2"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.130997, -2.02695, 0)
+operation = 1
+radius = 5.78609
+height = 20.2061
+sides = 16
+
+[node name="Door cutout3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.998594, 0, 0, 0, 0.998594, 0, 0, 0, 0.998594, 9.15729, 0, 0)
+operation = 2
+size = Vector3(2.10498, 5.18872, 3.74054)
+
+[node name="Door cutout4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.83997, 0, 0)
+operation = 2
+size = Vector3(2.10498, 5.18872, 3.74054)
+
+[node name="Window Cutout3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.999111, 0, 0, 0, 0.999111, 0, 0, 0, 0.999111, -4.08365, 0, 4.49908)
+operation = 2
+size = Vector3(5.66342, 2.25098, 0.672729)
+
+[node name="Window Cutout4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.999111, 0, 0, 0, 0.999111, 0, 0, 0, 0.999111, 1.50955, 0.223999, 4.49591)
+operation = 2
+size = Vector3(3.86605, 1.64819, 0.672729)
